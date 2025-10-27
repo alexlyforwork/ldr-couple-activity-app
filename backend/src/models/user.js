@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const ActivitySchema = new mongoose.Schema({
     title: {type: String},
-    rating: {type: int},
+    rating: {type: Number},
 })
 
 const UserSchema = new mongoose.Schema({

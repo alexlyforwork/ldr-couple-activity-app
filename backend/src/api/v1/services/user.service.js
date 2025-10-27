@@ -1,14 +1,20 @@
 import User from "@/models/user.js";
 
 class UserService{
+    /**
+    * Get user detail by email
+    * @param email
+    * @returns user data
+    * @throws Error if cannot find user
+    */
     async getUserByEmail(email){
-        try{
-            const user = User.find({email: email});
-            return { status: ResponseStatus.SUCCESS, data: user };
-        } catch {
-            throw new Error('Cannot find user');
+        const user = await User.find({email});
+        if (user.length==0){
+            throw new Error ('Cannot find user')
         }
+        return { status: "SUCCESS", data: user[0] };
     }
+
 }
 
 export default new UserService();
