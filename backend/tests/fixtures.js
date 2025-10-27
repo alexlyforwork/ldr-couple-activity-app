@@ -9,5 +9,6 @@ export const MOCK_USER = {
         { title: "Watching Anime", rating: 5 },
         { title: "Playing Games", rating: 4 },
         { title: "Drawing", rating: 5 }
-    ]
+    ],
+    expectation: "Low-cost activities"
 }

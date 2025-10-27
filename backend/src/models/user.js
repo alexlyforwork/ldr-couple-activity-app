@@ -8,7 +8,8 @@ const ActivitySchema = new mongoose.Schema({
 const UserSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
-  activities: {type: [ActivitySchema]}
+  activities: {type: [ActivitySchema]},
+  expectation: {type: String}
 });
 
 export default mongoose.model("user", UserSchema);
