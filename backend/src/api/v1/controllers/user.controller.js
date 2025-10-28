@@ -18,6 +18,24 @@ class UserController {
       });
     }
   }
+  
+  async updateUserByEmail(req,res){
+    try{
+      if (!req.body || (!req.body.name && !req.body.expectation)){
+        return res
+          .status(400)
+          .json({ status: "error", message: "Invalid request body." });
+      }
+      const { email, name, expectation } = req.body;
+      const response = await UserService.updateUserByEmail(email,name,expectation);
+      return res.status(200).json(response);
+    } catch(error ){
+      return res.status(500).json({
+        status: "error",
+        message: error.message,
+      });
+    }
+  }
 }
 
 export default new UserController();

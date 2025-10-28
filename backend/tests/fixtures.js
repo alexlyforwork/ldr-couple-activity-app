@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const user_id = new mongoose.Types.ObjectId()
+
 export const MOCK_USER = {
     _id: user_id,
     name: "Alex Ly",
