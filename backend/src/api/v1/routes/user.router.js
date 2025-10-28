@@ -1,4 +1,4 @@
-import UserController from "../controllers/user.controller.js"
+import UserController from "../controllers/user.controller.js";
 import express from "express";
 
 const UserRouter = express.Router();
@@ -10,6 +10,5 @@ UserRouter.get("/:email", async (req, res, next) => {
     next(error);
   }
 });
-
 
 export default UserRouter;

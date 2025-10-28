@@ -1,15 +1,15 @@
 import mongoose from "mongoose";
 
 const ActivitySchema = new mongoose.Schema({
-    title: {type: String},
-    rating: {type: Number},
-})
+  title: { type: String },
+  rating: { type: Number },
+});
 
 const UserSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
-  activities: {type: [ActivitySchema]},
-  expectation: {type: String}
+  activities: { type: [ActivitySchema] },
+  expectation: { type: String },
 });
 
 export default mongoose.model("user", UserSchema);
