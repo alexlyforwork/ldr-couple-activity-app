@@ -14,7 +14,29 @@ class UserService{
         }
         return { status: "SUCCESS", data: user[0] };
     }
-
+    /**
+     * Update user detail by email
+     * @param email, name || expectaion
+     * @return user data
+     * @throws Error if cannot find user
+     */
+    async updateUserByEmail(email, name, expectation){
+        let currentUser;
+        try{
+            const user = await this.getUserByEmail(email);
+            currentUser = user.data
+        } catch (error) {
+            throw error;
+        }
+        if (!name || name.length === 0){
+            name = currentUser.name;
+        }
+        if (!expectation || expectation.length === 0){
+            expectation = currentUser.expectation;
+        }
+        const updatedUser = await User.updateOne({email:email},{$set: {name: name, expectation:expectation }})
+        return { status: "SUCCESS", data: updatedUser };
+    }
 }
 
 export default new UserService();
