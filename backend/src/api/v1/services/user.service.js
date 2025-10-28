@@ -20,25 +20,13 @@ class UserService {
    * @throws Error if cannot find user
    */
   async updateUserByEmail(email, name, expectation) {
-    let currentUser;
-    try {
-      const user = await this.getUserByEmail(email);
-      currentUser = user.data;
-    } catch (error) {
-      throw error;
-    }
-    if (!name || name.length === 0) {
-      name = currentUser.name;
-    }
-    if (!expectation || expectation.length === 0) {
-      expectation = currentUser.expectation;
-    }
-    await User.updateOne(
+    const updatedUser = await User.findOneAndUpdate(
       { email: email },
       { $set: { name: name, expectation: expectation } },
-      {new: true}
+      {new: true, runValidators: true}
     );
-    return {status: "SUCCESS"};
+    if (!updatedUser) throw new Error("Cannot find user")
+    return {status: "SUCCESS", data: updatedUser};
   }
 }
 

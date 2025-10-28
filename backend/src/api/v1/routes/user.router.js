@@ -11,7 +11,7 @@ UserRouter.get("/:email", async (req, res, next) => {
   }
 });
 
-UserRouter.put("/", async (req, res, next) => {
+UserRouter.patch("/", async (req, res, next) => {
   try {
     await UserController.updateUserByEmail(req, res);
   } catch (error) {

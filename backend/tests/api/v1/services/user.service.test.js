@@ -29,10 +29,10 @@ describe('User Service - updateUserByEmail', () => {
         jest.clearAllMocks();
     })
     it('should update user successfully', async () => {
-        jest.spyOn(UserService,"getUserByEmail").mockResolvedValue({ status: "SUCCESS", data: MOCK_USER });
-        jest.spyOn(User,"updateOne").mockResolvedValue(UPDATED_MOCK_USER)
+        jest.spyOn(User,"findOneAndUpdate").mockResolvedValue(UPDATED_MOCK_USER)
         
         const updatedUser = await UserService.updateUserByEmail(MOCK_USER.email, UPDATED_MOCK_USER.name, UPDATED_MOCK_USER.expection)
         expect(updatedUser.status).toEqual("SUCCESS")
+        expect(updatedUser.data).toEqual(UPDATED_MOCK_USER)
     })
 })
