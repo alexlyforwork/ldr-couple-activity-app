@@ -17,7 +17,6 @@ class UserService {
   /**
    * Update user detail by email
    * @param email, name || expectaion
-   * @return user data
    * @throws Error if cannot find user
    */
   async updateUserByEmail(email, name, expectation) {
@@ -34,11 +33,12 @@ class UserService {
     if (!expectation || expectation.length === 0) {
       expectation = currentUser.expectation;
     }
-    const updatedUser = await User.updateOne(
+    await User.updateOne(
       { email: email },
       { $set: { name: name, expectation: expectation } },
+      {new: true}
     );
-    return { status: "SUCCESS", data: updatedUser };
+    return {status: "SUCCESS"};
   }
 }
 

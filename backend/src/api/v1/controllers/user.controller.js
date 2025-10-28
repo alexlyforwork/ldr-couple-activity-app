@@ -21,7 +21,7 @@ class UserController {
   
   async updateUserByEmail(req,res){
     try{
-      if (!req.body || (!req.body.name && !req.body.expectation)){
+      if (!req.body || !(req.body.name && req.body.expectation) || !req.body.email){
         return res
           .status(400)
           .json({ status: "error", message: "Invalid request body." });

@@ -34,6 +34,5 @@ describe('User Service - updateUserByEmail', () => {
         
         const updatedUser = await UserService.updateUserByEmail(MOCK_USER.email, UPDATED_MOCK_USER.name, UPDATED_MOCK_USER.expection)
         expect(updatedUser.status).toEqual("SUCCESS")
-        expect(updatedUser.data).toEqual(UPDATED_MOCK_USER)
     })
 })

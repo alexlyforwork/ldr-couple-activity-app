@@ -64,7 +64,18 @@ describe('User Controller', () => {
             await UserController.updateUserByEmail(req,res)
             expect(UserService.updateUserByEmail).toHaveBeenCalledWith(MOCK_USER.email, MOCK_USER.name, MOCK_USER.expectation);
             expect(res.status).toHaveBeenCalledWith(200);
-            expect(res.json).toHaveBeenCalledWith(mockResponse)
+        })
+        it('should throw error if invalid request body', async () => {
+            const req = {
+                body: {}
+            }
+            const res = {
+                status: jest.fn().mockReturnThis(),
+                json: jest.fn(),
+            }
+            await UserController.updateUserByEmail(req,res)
+            expect(res.status).toHaveBeenCalledWith(400);
+            expect(res.json).toHaveBeenCalledWith({ status: 'error', message: 'Invalid request body.' });
         })
     })
 })
