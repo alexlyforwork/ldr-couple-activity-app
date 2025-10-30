@@ -42,4 +42,38 @@ describe('Couple Controller', () => {
             expect(res.json).toHaveBeenCalledWith({ status: 'error', message: 'Invalid request body.' });
         })
     })
+    
+    describe('getCoupleByCode', () => {
+        it('should get couple successfully', async () => {
+            const req = {
+                params: {code: MOCK_COUPLE.code}
+            }
+            const res = {
+                status: jest.fn().mockReturnThis(),
+                json: jest.fn(),
+            }
+            const mockResponse = {
+                status: "SUCCESS",
+                data: MOCK_COUPLE
+            }
+            jest.spyOn(CoupleService,"getCoupleByCode").mockResolvedValue(mockResponse);
+
+            await CoupleController.getCoupleByCode(req,res)
+            expect(CoupleService.getCoupleByCode).toHaveBeenCalledWith(MOCK_COUPLE.code)
+            expect(res.status).toHaveBeenCalledWith(200);
+            expect(res.json).toHaveBeenCalledWith(mockResponse);
+        })
+        it('should throw error if invalid request body', async () => {
+            const req = {
+                params: {}
+            }
+            const res = {
+                status: jest.fn().mockReturnThis(),
+                json: jest.fn(),
+            }
+            await CoupleController.getCoupleByCode(req,res)
+            expect(res.status).toHaveBeenCalledWith(400);
+            expect(res.json).toHaveBeenCalledWith({ status: 'error', message: 'Invalid request params.' });
+        })
+    })
 })

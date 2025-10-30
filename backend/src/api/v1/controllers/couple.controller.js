@@ -18,6 +18,24 @@ class CoupleController {
       });
     }
   }
+
+  async getCoupleByCode(req, res) {
+    try {
+      if (!req.params || !req.params.code) {
+        return res
+          .status(400)
+          .json({ status: "error", message: "Invalid request params." });
+      }
+      const { code } = req.params;
+      const response = await CoupleService.getCoupleByCode(code);
+      return res.status(200).json(response);
+    } catch (error) {
+      return res.status(500).json({
+        status: "error",
+        message: error.message,
+      });
+    }
+  }
 }
 
 export default new CoupleController();
