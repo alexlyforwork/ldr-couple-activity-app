@@ -26,8 +26,10 @@ class CoupleService {
    */
   async generateCode() {
     let num = 0;
-    while (num == 0 || Couple.find({ num })) {
+    let exists = true;
+    while (exists) {
       num = Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000;
+      exists = await Couple.exists({ code: num });
     }
     return num;
   }
