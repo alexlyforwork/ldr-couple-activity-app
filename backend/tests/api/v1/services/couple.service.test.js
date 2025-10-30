@@ -18,5 +18,25 @@ describe('Couple Service - createCouple', () => {
         expect(couple.status).toEqual("SUCCESS")
         expect(data).toEqual(MOCK_COUPLE_DATA)
     })
+})
 
+describe('Couple Service - getCoupleByCode', () => {
+    beforeEach(() => {
+        jest.clearAllMocks();
+    })
+    it('should get couple data successfully', async()=>{
+        jest.spyOn(Couple,"find").mockResolvedValue([MOCK_COUPLE])
+
+        const couple = await CoupleService.getCoupleByCode(MOCK_COUPLE.code)
+       
+        expect(couple.status).toEqual("SUCCESS")
+        expect(couple.data).toEqual(MOCK_COUPLE)
+    })
+    it('should throw Error if no couple matches the code', async () => {
+        jest.spyOn(Couple,"find").mockResolvedValue([])
+
+        await expect(CoupleService.getCoupleByCode(MOCK_COUPLE.code))
+            .rejects
+            .toThrow('Cannot find couple')
+    })
 })

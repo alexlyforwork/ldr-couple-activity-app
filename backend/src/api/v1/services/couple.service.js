@@ -33,6 +33,19 @@ class CoupleService {
     }
     return num;
   }
+
+  /**
+   * Get couple details based on code
+   * @return couple data
+   * @throws error if couple not found
+   */
+  async getCoupleByCode(code){
+    const couple = await Couple.find({code});
+    if (couple.length == 0) {
+        throw new Error("Cannot find couple");
+    }
+    return { status: "SUCCESS", data: couple[0] }
+  }
 }
 
 export default new CoupleService();
