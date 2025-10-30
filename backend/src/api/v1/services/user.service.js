@@ -23,10 +23,10 @@ class UserService {
     const updatedUser = await User.findOneAndUpdate(
       { email: email },
       { $set: { name: name, expectation: expectation } },
-      {new: true, runValidators: true}
+      { new: true, runValidators: true },
     );
-    if (!updatedUser) throw new Error("Cannot find user")
-    return {status: "SUCCESS", data: updatedUser};
+    if (!updatedUser) throw new Error("Cannot find user");
+    return { status: "SUCCESS", data: updatedUser };
   }
 }
 

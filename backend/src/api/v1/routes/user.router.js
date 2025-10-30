@@ -19,5 +19,4 @@ UserRouter.patch("/", async (req, res, next) => {
   }
 });
 
-
 export default UserRouter;
