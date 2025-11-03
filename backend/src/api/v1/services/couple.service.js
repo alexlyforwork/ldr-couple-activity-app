@@ -5,11 +5,11 @@ class CoupleService {
   /**
    * Initiate a new couple
    * @param user1_id
-   * @return new couple 
+   * @return new couple
    * @throws error if user1 not found
    */
   async createCouple(user1_id) {
-    await UserService.checkUserById(user1_id)
+    await UserService.checkUserById(user1_id);
     const newCouple = new Couple({
       user1_id: user1_id,
       user2_id: null,
@@ -57,7 +57,7 @@ class CoupleService {
    * @throws error if user2 not found
    * @throws error if user2 == user1
    */
-  async addUser2ToCoupleByCode(code, user2_id){
+  async addUser2ToCoupleByCode(code, user2_id) {
     const couple = await Couple.findOne({ code });
     if (!couple) throw new Error("Cannot find couple");
 

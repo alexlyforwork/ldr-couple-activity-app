@@ -34,13 +34,12 @@ class UserService {
    * @param user_id
    * @throws Error if cannot find user
    */
-  async checkUserById(user_id){
-    const user = await User.exists({"_id": user_id})
-    if (!user){
-      throw new Error('Cannot find user')
+  async checkUserById(user_id) {
+    const user = await User.exists({ _id: user_id });
+    if (!user) {
+      throw new Error("Cannot find user");
     }
   }
-
 }
 
 export default new UserService();

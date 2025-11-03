@@ -66,7 +66,7 @@ describe("Couple Service - addUser2ToCoupleByCode", () => {
             .toThrow('Cannot find couple')
     })
     it('should throw error if user2 is the same as user1', async () => {
-        jest.spyOn(Couple,"findOne").mockResolvedValue(new Couple(MOCK_COUPLE));
+        jest.spyOn(Couple,"findOne").mockResolvedValue(MOCK_COUPLE);
         await expect(CoupleService.addUser2ToCoupleByCode(MOCK_COUPLE.code, MOCK_COUPLE.user1_id))
             .rejects
             .toThrow('User2 cannot be the same as User1')

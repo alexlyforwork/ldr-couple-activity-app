@@ -21,7 +21,7 @@ class CoupleController {
 
   async getCoupleByCode(req, res) {
     try {
-      if (!req.params || !req.params.code ||isNaN(req.params.code)) {
+      if (!req.params || !req.params.code || isNaN(req.params.code)) {
         return res
           .status(400)
           .json({ status: "error", message: "Invalid request params." });
@@ -45,7 +45,10 @@ class CoupleController {
           .json({ status: "error", message: "Invalid request body." });
       }
       const { code, user2_id } = req.body;
-      const response = await CoupleService.addUser2ToCoupleByCode(code,user2_id);
+      const response = await CoupleService.addUser2ToCoupleByCode(
+        code,
+        user2_id,
+      );
       return res.status(200).json(response);
     } catch (error) {
       return res.status(500).json({
