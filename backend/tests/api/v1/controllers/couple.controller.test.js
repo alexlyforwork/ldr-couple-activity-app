@@ -1,6 +1,6 @@
 import Couple from "@/api/v1/controllers/couple.controller.js";
 import { jest } from "@jest/globals";
-import { MOCK_COUPLE } from "../../../fixtures.js";
+import { MOCK_COUPLE, UPDATED_MOCK_COUPLE, UPDATED_MOCK_USER } from "../../../fixtures.js";
 import CoupleService from "@/api/v1/services/couple.service.js";
 import CoupleController from "@/api/v1/controllers/couple.controller.js";
 
@@ -63,7 +63,7 @@ describe('Couple Controller', () => {
             expect(res.status).toHaveBeenCalledWith(200);
             expect(res.json).toHaveBeenCalledWith(mockResponse);
         })
-        it('should throw error if invalid request body', async () => {
+        it('should throw error if invalid request params', async () => {
             const req = {
                 params: {}
             }
@@ -76,4 +76,39 @@ describe('Couple Controller', () => {
             expect(res.json).toHaveBeenCalledWith({ status: 'error', message: 'Invalid request params.' });
         })
     })
+    
+    describe('addUser2ToCoupleByCode', () => {
+        it('should add user2 successfully', async()=>{
+            const req = {
+                body: {code: MOCK_COUPLE.code, user2_id: UPDATED_MOCK_COUPLE.user2_id}
+            }
+            const res = {
+                status: jest.fn().mockReturnThis(),
+                json: jest.fn(),
+            }
+            const mockResponse = {
+                status: "SUCCESS",
+                data: UPDATED_MOCK_USER
+            }
+            jest.spyOn(CoupleService,"addUser2ToCoupleByCode").mockResolvedValue(mockResponse);
+
+            await CoupleController.addUser2ToCoupleByCode(req,res)
+            expect(CoupleService.addUser2ToCoupleByCode).toHaveBeenCalledWith(MOCK_COUPLE.code, UPDATED_MOCK_COUPLE.user2_id)
+            expect(res.status).toHaveBeenCalledWith(200);
+            expect(res.json).toHaveBeenCalledWith(mockResponse);
+        })
+        it('should throw error if invalid request body', async () => {
+            const req = {
+                body: {}
+            }
+            const res = {
+                status: jest.fn().mockReturnThis(),
+                json: jest.fn(),
+            }
+            await CoupleController.addUser2ToCoupleByCode(req,res)
+            expect(res.status).toHaveBeenCalledWith(400);
+            expect(res.json).toHaveBeenCalledWith({ status: 'error', message: 'Invalid request body.' });
+        })
+    })
+
 })

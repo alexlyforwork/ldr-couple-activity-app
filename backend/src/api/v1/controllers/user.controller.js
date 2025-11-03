@@ -3,7 +3,7 @@ import UserService from "../services/user.service.js";
 class UserController {
   async getUserByEmail(req, res) {
     try {
-      if (!req.params || !req.params.email) {
+      if (!req.params || !req.params.email || req.params.email == ":user") {
         return res
           .status(400)
           .json({ status: "error", message: "Invalid request params." });

@@ -1,7 +1,9 @@
 import mongoose from "mongoose";
 
 const user_id = new mongoose.Types.ObjectId()
+const user2_id = new mongoose.Types.ObjectId()
 const couple_id = new mongoose.Types.ObjectId()
+const next_deadline = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
 
 export const MOCK_USER = {
     _id: user_id,
@@ -20,9 +22,19 @@ export const MOCK_COUPLE = {
     user1_id: user_id,
     user2_id: null,
     code: 123456,
-    last_session: null,
-    next_session: null,
+    last_session_id: null,
+    next_session_id: null,
     next_deadline: null
+}
+
+export const UPDATED_MOCK_COUPLE = {
+    _id: couple_id,
+    user1_id: user_id,
+    user2_id: user2_id,
+    code: 123456,
+    last_session_id: null,
+    next_session_id: null,
+    next_deadline: next_deadline
 }
 
 export const UPDATED_MOCK_USER = {

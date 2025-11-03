@@ -35,4 +35,28 @@ describe('User Service - updateUserByEmail', () => {
         expect(updatedUser.status).toEqual("SUCCESS")
         expect(updatedUser.data).toEqual(UPDATED_MOCK_USER)
     })
+    it('should throw cannot find user if email is not valid', async () => {
+        jest.spyOn(User,"findOneAndUpdate").mockResolvedValue(null);
+        await expect(UserService.updateUserByEmail(MOCK_USER.email, UPDATED_MOCK_USER.name, UPDATED_MOCK_USER.expection))
+            .rejects
+            .toThrow('Cannot find user')
+    })
 })
+
+describe('User Service - checkUserById', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('should pass if user exists', async () => {
+    jest.spyOn(User, 'exists').mockResolvedValue({ _id: MOCK_USER._id });
+    await expect(UserService.checkUserById(MOCK_USER._id)).resolves.not.toThrow();
+  });
+
+  it('should throw error if user does not exist', async () => {
+    jest.spyOn(User, 'exists').mockResolvedValue(null);
+    await expect(UserService.checkUserById(MOCK_USER._id))
+      .rejects
+      .toThrow('Cannot find user');
+  });
+});
